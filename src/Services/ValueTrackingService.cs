@@ -1,14 +1,12 @@
 ﻿using Konso.ValueTracking.Clients.Models;
 using System;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using System.Net.Http;
 using System.Web;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Konso.ValueTracking.Clients.Interfaces;
 using Konso.ValueTracking.Clients.Extensions;
-using System.IO;
 using System.Text.Json;
 
 namespace Konso.ValueTracking.Clients.Services
@@ -25,9 +23,9 @@ namespace Konso.ValueTracking.Clients.Services
         {
 
             _clientFactory = clientFactory;
-            _endpoint = configuration.GetValue<string>("IndevLabs.Infra:Activity:Endpoint");
-            _bucketId = configuration.GetValue<string>("IndevLabs.Infra:Activity:BucketId");
-            _apiKey = configuration.GetValue<string>("IndevLabs.Infra:Activity:ApiKey");
+            _endpoint = configuration.GetValue<string>("Konso:ValueTracking:Endpoint");
+            _bucketId = configuration.GetValue<string>("Konso:ValueTracking:BucketId");
+            _apiKey = configuration.GetValue<string>("Konso:ValueTracking:ApiKey");
         }
 
         public ValueTrackingService(string endpoint, string bucketId, string apiKey, IHttpClientFactory clientFactory)
@@ -45,7 +43,7 @@ namespace Konso.ValueTracking.Clients.Services
         /// <param name="userAgent"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public async Task<bool> CreateAsync(ValueTrackingCreateRequest request, string userAgent)
+        public async Task<bool> CreateAsync(ValueTrackingCreateRequest request)
         {
             var client = _clientFactory.CreateClient();
             
@@ -54,7 +52,6 @@ namespace Konso.ValueTracking.Clients.Services
             if (string.IsNullOrEmpty(_apiKey)) throw new Exception("API key is not defined");
             if (!client.DefaultRequestHeaders.TryAddWithoutValidation("x-api-key", _apiKey)) throw new Exception("Missing API key");
 
-            request.Browser = userAgent;
             request.TimeStamp = DateTime.UtcNow.ToEpoch();
 
             // serialize request as json

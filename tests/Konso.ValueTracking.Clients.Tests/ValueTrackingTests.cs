@@ -2,7 +2,6 @@ using FluentAssertions;
 using Konso.ValueTracking.Clients.Models;
 using Konso.ValueTracking.Clients.Services;
 using Konso.ValueTracking.Clients.Tests;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
@@ -11,9 +10,9 @@ namespace InDevLabs.Infra.Activity.Tests
 {
     public class ValueTrackingTests
     {
-        private const string apiUrl = "https://devapis.konso.io/v1/value_tracking";
-        private const string bucketId = "cab6ff8d";
-        private const string apiKey = "IL84eTnxvn5mtlZNH3sSnMqE8V6E5hNm3Synx9E+XeU=";
+        private const string apiUrl = "https://apis.konso.io/v1/value_tracking";
+        private const string bucketId = "<your bucket>";
+        private const string apiKey = "<bucket's access key>";
 
 
         [Fact]
@@ -24,9 +23,9 @@ namespace InDevLabs.Infra.Activity.Tests
                 apiKey, 
                 new DefaultHttpClientFactory());
 
-            var o = new ValueTrackingCreateRequest() { AppName = "test", Country = "UK", Value = 49.00, EventId = 1 };
+            var o = new ValueTrackingCreateRequest() { AppName = "test", Country = "UK", Value = 49.00, EventId = 1, Browser = "Test Browser" };
 
-            var response = await service.CreateAsync(o, "test browser");
+            var response = await service.CreateAsync(o);
 
             // 
             response.Should().BeTrue();
@@ -40,9 +39,9 @@ namespace InDevLabs.Infra.Activity.Tests
                 apiKey,
                 new DefaultHttpClientFactory());
 
-            var o = new ValueTrackingCreateRequest() { AppName = "test", Country = "UK", Value = 49.00, EventId = 1 };
+            var o = new ValueTrackingCreateRequest() { AppName = "test", Country = "UK", Value = 49.00, EventId = 1, Browser = "Test Browser" };
 
-            var response = await service.CreateAsync(o, "test browser");
+            var response = await service.CreateAsync(o);
 
             // 
             response.Should().BeTrue();
@@ -56,9 +55,9 @@ namespace InDevLabs.Infra.Activity.Tests
                 apiKey,
                 new DefaultHttpClientFactory());
 
-            var o = new ValueTrackingCreateRequest() { AppName = "test", Country = "UK", Value = 49.00, EventId = 1 };
+            var o = new ValueTrackingCreateRequest() { AppName = "test", Country = "UK", Value = 49.00, EventId = 1, Browser = "Test Browser" };
 
-            var response = await service.CreateAsync(o, "test browser");
+            var response = await service.CreateAsync(o);
 
             // 
             response.Should().BeTrue();
@@ -72,9 +71,9 @@ namespace InDevLabs.Infra.Activity.Tests
                 apiKey,
                 new DefaultHttpClientFactory());
 
-            var o = new ValueTrackingCreateRequest() { AppName = "test", Country = "UK", Value = 49.00, EventId = 1, Tags = new List<string>() { "test" } };
+            var o = new ValueTrackingCreateRequest() { AppName = "test", Country = "UK", Value = 49.00, EventId = 1, Browser = "Test Browser", Tags = new List<string>() { "test" } };
 
-            var response = await service.CreateAsync(o, "test browser");
+            var response = await service.CreateAsync(o);
 
             // 
             response.Should().BeTrue();
@@ -90,9 +89,9 @@ namespace InDevLabs.Infra.Activity.Tests
                 apiKey,
                 new DefaultHttpClientFactory());
 
-            var o = new ValueTrackingCreateRequest() { AppName = "test", Country = "UK", Value = 49.00, EventId = 1, Tags = new List<string>() { "test" } };
+            var o = new ValueTrackingCreateRequest() { AppName = "test", Country = "UK", Value = 49.00, EventId = 1, Tags = new List<string>() { "test" }, Browser = "Test Browser" };
 
-            var response = await service.CreateAsync(o, "test browser");
+            var response = await service.CreateAsync(o);
 
             // act
             var res = await service.GetByAsync(new ValueTrackingGetRequest() { Tags = new List<string>() { "test" }, From = 0, To = 10 });

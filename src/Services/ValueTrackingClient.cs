@@ -11,7 +11,7 @@ using System.Text.Json;
 
 namespace Konso.Clients.ValueTracking.Services
 {
-    public class ValueTrackingService : IValueTrackingService
+    public class ValueTrackingClient : IValueTrackingClient
     {
         private readonly IHttpClientFactory _clientFactory;
 
@@ -19,7 +19,7 @@ namespace Konso.Clients.ValueTracking.Services
         private readonly string _endpoint;
         private readonly string _apiKey;
 
-        public ValueTrackingService(IConfiguration configuration, IHttpClientFactory clientFactory)
+        public ValueTrackingClient(IConfiguration configuration, IHttpClientFactory clientFactory)
         {
 
             _clientFactory = clientFactory;
@@ -28,7 +28,7 @@ namespace Konso.Clients.ValueTracking.Services
             _apiKey = configuration.GetValue<string>("Konso:ValueTracking:ApiKey");
         }
 
-        public ValueTrackingService(string endpoint, string bucketId, string apiKey, IHttpClientFactory clientFactory)
+        public ValueTrackingClient(string endpoint, string bucketId, string apiKey, IHttpClientFactory clientFactory)
         {
             _endpoint = endpoint;
             _bucketId = bucketId;

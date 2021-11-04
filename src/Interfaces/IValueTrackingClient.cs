@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Konso.Clients.ValueTracking.Interfaces
 {
-    public interface IValueTrackingService
+    public interface IValueTrackingClient
     {
         Task<bool> CreateAsync(ValueTrackingCreateRequest request);
         Task<PagedResponse<ValueTrackingItem>> GetByAsync(ValueTrackingGetRequest request);

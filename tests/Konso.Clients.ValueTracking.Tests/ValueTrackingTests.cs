@@ -18,7 +18,7 @@ namespace InDevLabs.Infra.Activity.Tests
         [Fact]
         public async Task Create_SimpleRequest()
         {
-            var service = new ValueTrackingService(apiUrl, 
+            var service = new ValueTrackingClient(apiUrl, 
                 bucketId,
                 apiKey, 
                 new DefaultHttpClientFactory());
@@ -34,7 +34,7 @@ namespace InDevLabs.Infra.Activity.Tests
         [Fact]
         public async Task Create_SimpleRequestFresh()
         {
-            var service = new ValueTrackingService(apiUrl,
+            var service = new ValueTrackingClient(apiUrl,
                 bucketId,
                 apiKey,
                 new DefaultHttpClientFactory());
@@ -50,7 +50,7 @@ namespace InDevLabs.Infra.Activity.Tests
         [Fact]
         public async Task Create_SimpleRequestFresh2()
         {
-            var service = new ValueTrackingService(apiUrl,
+            var service = new ValueTrackingClient(apiUrl,
                 bucketId,
                 apiKey,
                 new DefaultHttpClientFactory());
@@ -66,7 +66,7 @@ namespace InDevLabs.Infra.Activity.Tests
         [Fact]
         public async Task Create_SimpleWithTag()
         {
-            var service = new ValueTrackingService(apiUrl,
+            var service = new ValueTrackingClient(apiUrl,
                 bucketId,
                 apiKey,
                 new DefaultHttpClientFactory());
@@ -84,7 +84,7 @@ namespace InDevLabs.Infra.Activity.Tests
         public async Task CreateAndGet_SimpleWithTag()
         {
             // arrange
-            var service = new ValueTrackingService(apiUrl,
+            var service = new ValueTrackingClient(apiUrl,
                 bucketId,
                 apiKey,
                 new DefaultHttpClientFactory());

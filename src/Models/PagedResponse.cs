@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Konso.ValueTracking.Clients.Models
+namespace Konso.Clients.ValueTracking.Models
 {
     public class PagedResponse<T>
     {

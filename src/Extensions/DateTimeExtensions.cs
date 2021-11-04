@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Konso.ValueTracking.Clients.Extensions
+namespace Konso.Clients.ValueTracking.Extensions
 {
     internal static class DateTimeExtensions
     {

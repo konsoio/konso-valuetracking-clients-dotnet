@@ -1,9 +1,9 @@
 ﻿
-using Konso.ValueTracking.Clients.Models.Requests;
+using Konso.Clients.ValueTracking.Models.Requests;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Konso.ValueTracking.Clients.Models
+namespace Konso.Clients.ValueTracking.Models
 {
     public class GenericResponse<T> where T : notnull
     {

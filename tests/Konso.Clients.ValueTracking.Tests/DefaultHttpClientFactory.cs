@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace Konso.ValueTracking.Clients.Tests
+namespace Konso.Clients.ValueTracking.Tests
 {
     public sealed class DefaultHttpClientFactory : IHttpClientFactory
     {

@@ -1,4 +1,4 @@
-﻿namespace Konso.ValueTracking.Clients.Models.Enums
+﻿namespace Konso.Clients.ValueTracking.Models.Enums
 {
     public enum SortingTypes
     {

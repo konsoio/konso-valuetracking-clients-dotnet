@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Konso.ValueTracking.Clients.Models.Requests
+namespace Konso.Clients.ValueTracking.Models.Requests
 {
     public class ValidationErrorItem
     {

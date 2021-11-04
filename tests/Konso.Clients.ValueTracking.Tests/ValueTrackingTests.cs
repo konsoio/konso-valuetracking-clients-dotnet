@@ -1,7 +1,7 @@
 using FluentAssertions;
-using Konso.ValueTracking.Clients.Models;
-using Konso.ValueTracking.Clients.Services;
-using Konso.ValueTracking.Clients.Tests;
+using Konso.Clients.ValueTracking.Models;
+using Konso.Clients.ValueTracking.Services;
+using Konso.Clients.ValueTracking.Tests;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;

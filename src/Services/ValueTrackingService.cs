@@ -1,15 +1,15 @@
-﻿using Konso.ValueTracking.Clients.Models;
+﻿using Konso.Clients.ValueTracking.Models;
 using System;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Web;
 using System.Text;
 using Microsoft.Extensions.Configuration;
-using Konso.ValueTracking.Clients.Interfaces;
-using Konso.ValueTracking.Clients.Extensions;
+using Konso.Clients.ValueTracking.Interfaces;
+using Konso.Clients.ValueTracking.Extensions;
 using System.Text.Json;
 
-namespace Konso.ValueTracking.Clients.Services
+namespace Konso.Clients.ValueTracking.Services
 {
     public class ValueTrackingService : IValueTrackingService
     {

@@ -1,7 +1,7 @@
-﻿using Konso.ValueTracking.Clients.Models;
+﻿using Konso.Clients.ValueTracking.Models;
 using System.Threading.Tasks;
 
-namespace Konso.ValueTracking.Clients.Interfaces
+namespace Konso.Clients.ValueTracking.Interfaces
 {
     public interface IValueTrackingService
     {

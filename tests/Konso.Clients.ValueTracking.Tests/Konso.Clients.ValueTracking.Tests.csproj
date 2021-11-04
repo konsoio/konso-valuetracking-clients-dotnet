@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Konso.ValueTracking.Clients.csproj" />
+    <ProjectReference Include="..\..\src\Konso.Clients.ValueTracking.csproj" />
   </ItemGroup>
 
 </Project>

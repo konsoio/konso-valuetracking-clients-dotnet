@@ -59,20 +59,26 @@ namespace Konso.Clients.ValueTracking.Services
 
             // string content 
             var httpItem = new StringContent(jsonStr, Encoding.UTF8, "application/json");
-          
+
             // call api
-            var response = await client.PostAsync($"{_endpoint}/{_bucketId}", httpItem);
-            response.EnsureSuccessStatusCode();
+            try
+            {
+                var response = await client.PostAsync($"{_endpoint}/v1/value_tracking/{_bucketId}", httpItem);
+                response.EnsureSuccessStatusCode();
+                var contents = await response.Content.ReadAsStringAsync();
 
-            var contents = await response.Content.ReadAsStringAsync();
+                if (string.IsNullOrEmpty(contents)) return false;
 
-            if (string.IsNullOrEmpty(contents)) return false;
+                var result = JsonSerializer.Deserialize<GenericResponse<bool>>(contents);
 
-            var result = JsonSerializer.Deserialize<GenericResponse<bool>>(contents);
-
-            if (!result.Succeeded)
-                throw new Exception(string.Format("Error sending value tracking {0}", result.ValidationErrors[0].Message));
-            return true;
+                if (!result.Succeeded)
+                    throw new Exception(string.Format("Error sending value tracking {0}", result.ValidationErrors[0].Message));
+                return true;
+            }
+            catch (HttpRequestException ex)
+            { 
+                return false;
+            }
         }
 
         public async Task<PagedResponse<ValueTrackingItem>> GetByAsync(ValueTrackingGetRequest request)
@@ -87,7 +93,7 @@ namespace Konso.Clients.ValueTracking.Services
                 if (!client.DefaultRequestHeaders.TryAddWithoutValidation("x-api-key", _apiKey)) throw new Exception("Missing API key");
 
                 int sortNum = (int)request.Sort;
-                var builder = new UriBuilder($"{_endpoint}/{_bucketId}")
+                var builder = new UriBuilder($"{_endpoint}/v1/value_tracking/{_bucketId}")
                 {
                     Port = -1
                 };

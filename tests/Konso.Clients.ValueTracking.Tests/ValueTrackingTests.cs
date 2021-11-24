@@ -10,7 +10,7 @@ namespace InDevLabs.Infra.Activity.Tests
 {
     public class ValueTrackingTests
     {
-        private const string apiUrl = "https://apis.konso.io/v1/value_tracking";
+        private const string apiUrl = "https://apis.konso.io";
         private const string bucketId = "<your bucket>";
         private const string apiKey = "<bucket's access key>";
 

@@ -7,5 +7,7 @@ namespace Konso.Clients.ValueTracking.Interfaces
     {
         Task<bool> CreateAsync(ValueTrackingCreateRequest request);
         Task<PagedResponse<ValueTrackingItem>> GetByAsync(ValueTrackingGetRequest request);
+
+        Task<PagedResponseWithAggs<ValueTrackingItem>> GetByWithAggsAsync(ValueTrackingGetRequest request);
     }
 }

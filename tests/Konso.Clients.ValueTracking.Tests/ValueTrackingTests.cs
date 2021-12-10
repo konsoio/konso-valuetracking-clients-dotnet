@@ -103,5 +103,27 @@ namespace InDevLabs.Infra.Activity.Tests
                 item.Tags.Should().Contain("test");
             }
         }
+
+        [Fact]
+        public async Task CreateAndGetWithAggs()
+        {
+            // arrange
+            var service = new ValueTrackingClient(apiUrl,
+                bucketId,
+                apiKey,
+                new DefaultHttpClientFactory());
+
+            var o = new ValueTrackingCreateRequest() { AppName = "test", Country = "UK", Value = 49.00, EventId = 1, Tags = new List<string>() { "test" }, Browser = "Test Browser" };
+
+            var response = await service.CreateAsync(o);
+
+            // act
+            var res = await service.GetByWithAggsAsync(new ValueTrackingGetRequest() { Tags = new List<string>() { "test" }, From = 0, To = 10 });
+
+
+            // assert
+            res.Aggs.Count.Should().BeGreaterThan(0);
+        }
+
     }
 }

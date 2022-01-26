@@ -32,13 +32,14 @@ public void ConfigureServices(IServiceCollection services)
 {
     // use httpclient factory
     services.AddHttpClient();
+    services.AddSingleton<IValueTrackingClient, ValueTrackingClient>();
 }
 ```
 
 Resolve the service in class constractor:
 ```
-private readonly IValueTrackingService _valueTrackingService;
-public SomeClass(IValueTrackingService valueTrackingService)
+private readonly IValueTrackingClient _valueTrackingService;
+public SomeClass(IValueTrackingClient valueTrackingService)
 {
     _valueTrackingService = valueTrackingService;
 }

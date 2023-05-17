@@ -2,7 +2,7 @@
 
 namespace Konso.Clients.ValueTracking.Models
 {
-    public class PagedResponse<T>
+    public class KonsoPagedResponse<T>
     {
         /// <summary>
         /// List of entities

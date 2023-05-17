@@ -2,11 +2,11 @@
 
 namespace Konso.Clients.ValueTracking.Models
 {
-    public class PagedResponseWithAggs<T> : PagedResponse<T>
+    public class KonsoPagedResponseWithAggs<T> : KonsoPagedResponse<T>
     {
-        public PagedResponseWithAggs() { }
+        public KonsoPagedResponseWithAggs() { }
 
-        public PagedResponseWithAggs(PagedResponse<T> res)
+        public KonsoPagedResponseWithAggs(KonsoPagedResponse<T> res)
         {
             this.List = res.List;
             this.Total = res.Total;

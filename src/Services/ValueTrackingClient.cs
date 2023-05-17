@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Web;
 using System.Text;
-using Microsoft.Extensions.Configuration;
 using Konso.Clients.ValueTracking.Interfaces;
 using Konso.Clients.ValueTracking.Extensions;
 using System.Text.Json;
@@ -15,24 +14,20 @@ namespace Konso.Clients.ValueTracking.Services
     {
         private readonly IHttpClientFactory _clientFactory;
 
-        private readonly string _bucketId;
-        private readonly string _endpoint;
-        private readonly string _apiKey;
-
-        public ValueTrackingClient(IConfiguration configuration, IHttpClientFactory clientFactory)
+        private readonly ValueTrackingOptions _config;
+        
+        public ValueTrackingClient(ValueTrackingOptions config, IHttpClientFactory clientFactory)
         {
-
             _clientFactory = clientFactory;
-            _endpoint = configuration.GetValue<string>("Konso:ValueTracking:Endpoint");
-            _bucketId = configuration.GetValue<string>("Konso:ValueTracking:BucketId");
-            _apiKey = configuration.GetValue<string>("Konso:ValueTracking:ApiKey");
+            _config = config;
         }
 
         public ValueTrackingClient(string endpoint, string bucketId, string apiKey, IHttpClientFactory clientFactory)
         {
-            _endpoint = endpoint;
-            _bucketId = bucketId;
-            _apiKey = apiKey;
+            _config = new ValueTrackingOptions();
+            _config.Endpoint = endpoint;
+            _config.BucketId = bucketId;
+            _config.ApiKey = apiKey;
             _clientFactory = clientFactory;
         }
 
@@ -47,10 +42,10 @@ namespace Konso.Clients.ValueTracking.Services
         {
             var client = _clientFactory.CreateClient();
             
-            if (string.IsNullOrEmpty(_endpoint)) throw new Exception("Endpoint is not defined");
-            if (string.IsNullOrEmpty(_bucketId)) throw new Exception("Bucket is not defined");
-            if (string.IsNullOrEmpty(_apiKey)) throw new Exception("API key is not defined");
-            if (!client.DefaultRequestHeaders.TryAddWithoutValidation("x-api-key", _apiKey)) throw new Exception("Missing API key");
+            if (string.IsNullOrEmpty(_config.Endpoint)) throw new Exception("Endpoint is not defined");
+            if (string.IsNullOrEmpty(_config.BucketId)) throw new Exception("Bucket is not defined");
+            if (string.IsNullOrEmpty(_config.ApiKey)) throw new Exception("API key is not defined");
+            if (!client.DefaultRequestHeaders.TryAddWithoutValidation("x-api-key", _config.ApiKey)) throw new Exception("Missing API key");
 
             request.TimeStamp = DateTime.UtcNow.ToEpoch();
 
@@ -63,7 +58,7 @@ namespace Konso.Clients.ValueTracking.Services
             // call api
             try
             {
-                var response = await client.PostAsync($"{_endpoint}/v1/value_tracking/{_bucketId}", httpItem);
+                var response = await client.PostAsync($"{_config.Endpoint}/v1/value_tracking/{_config.BucketId}", httpItem);
                 response.EnsureSuccessStatusCode();
                 var contents = await response.Content.ReadAsStringAsync();
 
@@ -81,19 +76,19 @@ namespace Konso.Clients.ValueTracking.Services
             }
         }
 
-        public async Task<PagedResponse<ValueTrackingItem>> GetByAsync(ValueTrackingGetRequest request)
+        public async Task<KonsoPagedResponse<ValueTrackingItem>> GetByAsync(ValueTrackingGetRequest request)
         {
             try
             {
                 var client = new HttpClient();
 
-                if (string.IsNullOrEmpty(_endpoint)) throw new Exception("Endpoint is not defined");
-                if (string.IsNullOrEmpty(_bucketId)) throw new Exception("Bucket is not defined");
-                if (string.IsNullOrEmpty(_apiKey)) throw new Exception("API key is not defined");
-                if (!client.DefaultRequestHeaders.TryAddWithoutValidation("x-api-key", _apiKey)) throw new Exception("Missing API key");
+                if (string.IsNullOrEmpty(_config.Endpoint)) throw new Exception("Endpoint is not defined");
+                if (string.IsNullOrEmpty(_config.BucketId)) throw new Exception("Bucket is not defined");
+                if (string.IsNullOrEmpty(_config.ApiKey)) throw new Exception("API key is not defined");
+                if (!client.DefaultRequestHeaders.TryAddWithoutValidation("x-api-key", _config.ApiKey)) throw new Exception("Missing API key");
 
                 int sortNum = (int)request.Sort;
-                var builder = new UriBuilder($"{_endpoint}/v1/value_tracking/{_bucketId}")
+                var builder = new UriBuilder($"{_config.Endpoint}/v1/value_tracking/{_config.BucketId}")
                 {
                     Port = -1
                 };
@@ -131,7 +126,7 @@ namespace Konso.Clients.ValueTracking.Services
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 };
 
-                var responseObj = JsonSerializer.Deserialize<PagedResponse<ValueTrackingItem>>(responseBody, options);
+                var responseObj = JsonSerializer.Deserialize<KonsoPagedResponse<ValueTrackingItem>>(responseBody, options);
                 return responseObj;
             }
             catch (Exception ex)
@@ -140,19 +135,19 @@ namespace Konso.Clients.ValueTracking.Services
             }
         }
 
-        public async Task<PagedResponseWithAggs<ValueTrackingItem>> GetByWithAggsAsync(ValueTrackingGetRequest request)
+        public async Task<KonsoPagedResponseWithAggs<ValueTrackingItem>> GetByWithAggsAsync(ValueTrackingGetRequest request)
         {
             try
             {
                 var client = new HttpClient();
 
-                if (string.IsNullOrEmpty(_endpoint)) throw new Exception("Endpoint is not defined");
-                if (string.IsNullOrEmpty(_bucketId)) throw new Exception("Bucket is not defined");
-                if (string.IsNullOrEmpty(_apiKey)) throw new Exception("API key is not defined");
-                if (!client.DefaultRequestHeaders.TryAddWithoutValidation("x-api-key", _apiKey)) throw new Exception("Missing API key");
+                if (string.IsNullOrEmpty(_config.Endpoint)) throw new Exception("Endpoint is not defined");
+                if (string.IsNullOrEmpty(_config.BucketId)) throw new Exception("Bucket is not defined");
+                if (string.IsNullOrEmpty(_config.ApiKey)) throw new Exception("API key is not defined");
+                if (!client.DefaultRequestHeaders.TryAddWithoutValidation("x-api-key", _config.ApiKey)) throw new Exception("Missing API key");
 
                 int sortNum = (int)request.Sort;
-                var builder = new UriBuilder($"{_endpoint}/v1/value_tracking_with_aggs/{_bucketId}")
+                var builder = new UriBuilder($"{_config.Endpoint}/v1/value_tracking_with_aggs/{_config.BucketId}")
                 {
                     Port = -1
                 };
@@ -190,7 +185,7 @@ namespace Konso.Clients.ValueTracking.Services
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 };
 
-                var responseObj = JsonSerializer.Deserialize<PagedResponseWithAggs<ValueTrackingItem>>(responseBody, options);
+                var responseObj = JsonSerializer.Deserialize<KonsoPagedResponseWithAggs<ValueTrackingItem>>(responseBody, options);
                 return responseObj;
             }
             catch (Exception ex)

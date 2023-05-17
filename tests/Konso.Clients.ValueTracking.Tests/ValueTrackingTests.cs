@@ -10,17 +10,12 @@ namespace InDevLabs.Infra.Activity.Tests
 {
     public class ValueTrackingTests
     {
-        private const string apiUrl = "https://apis.konso.io";
-        private const string bucketId = "<your bucket>";
-        private const string apiKey = "<bucket's access key>";
-
-
+        private readonly ValueTrackingOptions config = new ValueTrackingOptions() { Endpoint = "https://apis.konso.io", ApiKey = "<bucket's access key>", BucketId = "<your bucket>" };
+      
         [Fact]
         public async Task Create_SimpleRequest()
         {
-            var service = new ValueTrackingClient(apiUrl, 
-                bucketId,
-                apiKey, 
+            var service = new ValueTrackingClient(config,
                 new DefaultHttpClientFactory());
 
             var o = new ValueTrackingCreateRequest() { AppName = "test", Country = "UK", Value = 49.00, EventId = 1, Browser = "Test Browser" };
@@ -34,9 +29,7 @@ namespace InDevLabs.Infra.Activity.Tests
         [Fact]
         public async Task Create_SimpleRequestFresh()
         {
-            var service = new ValueTrackingClient(apiUrl,
-                bucketId,
-                apiKey,
+            var service = new ValueTrackingClient(config,
                 new DefaultHttpClientFactory());
 
             var o = new ValueTrackingCreateRequest() { AppName = "test", Country = "UK", Value = 49.00, EventId = 1, Browser = "Test Browser" };
@@ -50,9 +43,7 @@ namespace InDevLabs.Infra.Activity.Tests
         [Fact]
         public async Task Create_SimpleRequestFresh2()
         {
-            var service = new ValueTrackingClient(apiUrl,
-                bucketId,
-                apiKey,
+            var service = new ValueTrackingClient(config,
                 new DefaultHttpClientFactory());
 
             var o = new ValueTrackingCreateRequest() { AppName = "test", Country = "UK", Value = 49.00, EventId = 1, Browser = "Test Browser" };
@@ -66,9 +57,7 @@ namespace InDevLabs.Infra.Activity.Tests
         [Fact]
         public async Task Create_SimpleWithTag()
         {
-            var service = new ValueTrackingClient(apiUrl,
-                bucketId,
-                apiKey,
+            var service = new ValueTrackingClient(config,
                 new DefaultHttpClientFactory());
 
             var o = new ValueTrackingCreateRequest() { AppName = "test", Country = "UK", Value = 49.00, EventId = 1, Browser = "Test Browser", Tags = new List<string>() { "test" } };
@@ -84,9 +73,7 @@ namespace InDevLabs.Infra.Activity.Tests
         public async Task CreateAndGet_SimpleWithTag()
         {
             // arrange
-            var service = new ValueTrackingClient(apiUrl,
-                bucketId,
-                apiKey,
+            var service = new ValueTrackingClient(config,
                 new DefaultHttpClientFactory());
 
             var o = new ValueTrackingCreateRequest() { AppName = "test", Country = "UK", Value = 49.00, EventId = 1, Tags = new List<string>() { "test" }, Browser = "Test Browser" };
@@ -108,9 +95,7 @@ namespace InDevLabs.Infra.Activity.Tests
         public async Task CreateAndGetWithAggs()
         {
             // arrange
-            var service = new ValueTrackingClient(apiUrl,
-                bucketId,
-                apiKey,
+            var service = new ValueTrackingClient(config,
                 new DefaultHttpClientFactory());
 
             var o = new ValueTrackingCreateRequest() { AppName = "test", Country = "UK", Value = 49.00, EventId = 1, Tags = new List<string>() { "test" }, Browser = "Test Browser" };

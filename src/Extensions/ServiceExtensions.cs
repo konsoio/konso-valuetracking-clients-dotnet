@@ -10,11 +10,14 @@ namespace Konso.Clients.ValueTracking.Extensions
     {
         public static void AddKonsoValueTracking(this IServiceCollection services, Action<ValueTrackingOptions> configureOptions)
         {
-            // setup configuration
-            services.Configure(configureOptions);
+            services.AddOptions();
+            
             // use httpclient factory
             services.AddHttpClient();
             services.AddSingleton<IValueTrackingClient, ValueTrackingClient>();
+
+            // setup configuration
+            services.Configure<ValueTrackingOptions>(configureOptions);
         }
     }
 }

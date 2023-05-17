@@ -7,6 +7,7 @@ using System.Text;
 using Konso.Clients.ValueTracking.Interfaces;
 using Konso.Clients.ValueTracking.Extensions;
 using System.Text.Json;
+using Microsoft.Extensions.Options;
 
 namespace Konso.Clients.ValueTracking.Services
 {
@@ -16,19 +17,10 @@ namespace Konso.Clients.ValueTracking.Services
 
         private readonly ValueTrackingOptions _config;
         
-        public ValueTrackingClient(ValueTrackingOptions config, IHttpClientFactory clientFactory)
+        public ValueTrackingClient(IOptions<ValueTrackingOptions> config, IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
-            _config = config;
-        }
-
-        public ValueTrackingClient(string endpoint, string bucketId, string apiKey, IHttpClientFactory clientFactory)
-        {
-            _config = new ValueTrackingOptions();
-            _config.Endpoint = endpoint;
-            _config.BucketId = bucketId;
-            _config.ApiKey = apiKey;
-            _clientFactory = clientFactory;
+            _config = config.Value;
         }
 
         /// <summary>

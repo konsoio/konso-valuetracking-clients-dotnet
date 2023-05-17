@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace Konso.Clients.ValueTracking.Models
 {
-    public class GenericResponse<T> where T : notnull
+    public class KonsoGenericResponse<T> where T : notnull
     {
         /// <summary>
         /// Returns errors in case of failure

@@ -64,7 +64,7 @@ namespace Konso.Clients.ValueTracking.Services
 
                 if (string.IsNullOrEmpty(contents)) return false;
 
-                var result = JsonSerializer.Deserialize<GenericResponse<bool>>(contents);
+                var result = JsonSerializer.Deserialize<KonsoGenericResponse<bool>>(contents);
 
                 if (!result.Succeeded)
                     throw new Exception(string.Format("Error sending value tracking {0}", result.ValidationErrors[0].Message));

@@ -19,13 +19,15 @@ To start using the Konso Value Tracking .NET Client Library, simply follow the s
 
 ⚠️ Prerequisites: *Konso account and created bucket*
 
-1. Install the library via NuGet or by manually referencing the assembly in your project.
+### Install the library via NuGet or by manually referencing the assembly in your project
 
 ```
+
 NuGet\Install-Package Konso.Clients.ValueTracking -Version 1.2.1
+
 ```
 
-2. Initialize the library with your API credentials and configuration settings.
+### Initialize the library with your API credentials and configuration settings
 
 Add config to `appsettings.json`:
 
@@ -50,9 +52,9 @@ builder.Services.AddKonsoValueTracking(options =>
 });
 ```
 
-3. Begin capturing business events using the provided API methods, specifying relevant event properties and parameters.
+### Begin capturing business events using the provided API methods, specifying relevant event properties and parameters
 
-Resolve the service in class constractor:
+Resolve the service in class constructor:
 
 ```csharp
 private readonly IValueTrackingClient _valueTrackingService;
@@ -81,7 +83,7 @@ await _valueTrackingService.CreateAsync(new ValueTrackingCreateRequest()
 });
 ```
 
-4. Leverage the real-time analytics and reporting features to gain actionable insights from your captured event data with [Konso](https://app.konso.io).
+### Leverage the real-time analytics and reporting features to gain actionable insights from your captured event data with [Konso](https://app.konso.io)
 
 For detailed documentation and additional examples, refer to the [Konso API Reference](https://docs.konso.io/).
 

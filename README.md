@@ -25,15 +25,15 @@ Add config to `appsettings.json`:
 ```
 
 
-It uses `HttpClientFactory`:
+in `startup.cs`:
 
 ```
-public void ConfigureServices(IServiceCollection services)
+builder.Services.AddKonsoValueTracking(options =>
 {
-    // use httpclient factory
-    services.AddHttpClient();
-    services.AddSingleton<IValueTrackingClient, ValueTrackingClient>();
-}
+    options.Endpoint = builder.Configuration.GetValue<string>("Konso:ValueTracking:Endpoint");
+    options.BucketId = builder.Configuration.GetValue<string>("Konso:ValueTracking:BucketId");
+    options.ApiKey = builder.Configuration.GetValue<string>("Konso:ValueTracking:ApiKey");
+});
 ```
 
 Resolve the service in class constractor:

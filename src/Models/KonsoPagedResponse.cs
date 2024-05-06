@@ -7,7 +7,7 @@ namespace Konso.Clients.ValueTracking.Models
         /// <summary>
         /// List of entities
         /// </summary>
-        public List<T> List { get; set; }
+        public required List<T> List { get; set; }
 
         /// <summary>
         /// Total amount of records

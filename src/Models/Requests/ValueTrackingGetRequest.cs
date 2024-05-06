@@ -7,17 +7,17 @@ namespace Konso.Clients.ValueTracking.Models
     {
         public int? EventId { get; set; }
         public byte? Type { get; set; }
-        public string Query { get; set; }
-        public string Custom { get; set; }
-        public string ReferenceId { get; set; }
+        public string? Query { get; set; }
+        public string? Custom { get; set; }
+        public string? ReferenceId { get; set; }
         public long? DateFrom { get; set; }
         public long? DateTo { get; set; }
         public SortingTypes Sort { get; set; }
-        public string CorrelationId { get; set; }
+        public string? CorrelationId { get; set; }
         public int From { get; set; }
         public int To { get; set; }
 
-        public string EventName { get; set; }
+        public string? EventName { get; set; }
 
         public List<string> Tags { get; set; }
     }

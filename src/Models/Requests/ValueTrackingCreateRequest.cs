@@ -5,18 +5,26 @@ namespace Konso.Clients.ValueTracking.Models
 {
     public class ValueTrackingCreateRequest
     {
-        public string Browser { get; set; }
-        public string IP { get; set; }
-        public string Country { get; set; }
+        public string? Browser { get; set; }
+        public string? IP { get; set; }
+        public string? Country { get; set; }
         public int EventId { get; set; }
-        public string ReferenceId { get; set; }
+        public string? ReferenceId { get; set; }
         public double? Value { get; set; }
-        public string Custom {  get; set; }
+        public string? Custom {  get; set; }
         public long TimeStamp { get; set; }
         public List<string> Tags { get; set; }
-        public string AppName { get; set; }
-        public string CorrelationId { get; set; }
+        public string? AppName { get; set; }
+        public string? CorrelationId { get; set; }
 
-        public string User { get; set; }
+        public string? User { get; set; }
+
+        public string? AppVersion { get; set; }
+
+        public string? UserAgent { get; set; }
+
+        public byte? Runtime { get; set; }
+
+        public string? RuntimeVersion { get; set; }
     }
 }

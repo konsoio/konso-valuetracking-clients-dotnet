@@ -8,6 +8,7 @@ using Konso.Clients.ValueTracking.Interfaces;
 using Konso.Clients.ValueTracking.Extensions;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 
 namespace Konso.Clients.ValueTracking.Services
 {
@@ -178,6 +179,61 @@ namespace Konso.Clients.ValueTracking.Services
                 };
 
                 var responseObj = JsonSerializer.Deserialize<KonsoPagedResponseWithAggs<ValueTrackingItem>>(responseBody, options);
+                return responseObj;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+
+        public async Task<List<KonsoChartItem>> GetChartByRefAsync(ValueTrackingGetRequest request)
+        {
+            try
+            {
+                var client = new HttpClient();
+
+                if (string.IsNullOrEmpty(_config.Endpoint)) throw new Exception("Endpoint is not defined");
+                if (string.IsNullOrEmpty(_config.BucketId)) throw new Exception("Bucket is not defined");
+                if (string.IsNullOrEmpty(_config.ApiKey)) throw new Exception("API key is not defined");
+                if (!client.DefaultRequestHeaders.TryAddWithoutValidation("x-api-key", _config.ApiKey)) throw new Exception("Missing API key");
+
+                int sortNum = (int)request.Sort;
+                var builder = new UriBuilder($"{_config.Endpoint}/v1/value_tracking_by_ref_charts/{_config.BucketId}")
+                {
+                    Port = -1
+                };
+                var query = HttpUtility.ParseQueryString(builder.Query);
+                if (!request.EventId.HasValue)
+                    throw new Exception("missing eventId");
+                query["eventId"] = request.EventId.ToString();
+
+
+                if (!request.DateFrom.HasValue)
+                    throw new Exception("missing datefrom");
+                query["fromDate"] = request.DateFrom.ToString();
+
+                if (!request.DateTo.HasValue)
+                    throw new Exception("missing dateto");
+                query["toDate"] = request.DateTo.ToString();
+
+                query["referenceId"] = request.ReferenceId;
+
+
+
+                builder.Query = query.ToString();
+                string url = builder.ToString();
+
+                string responseBody = await client.GetStringAsync(url);
+
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                };
+
+                var responseObj = JsonSerializer.Deserialize<List<KonsoChartItem>>(responseBody, options);
                 return responseObj;
             }
             catch (Exception ex)

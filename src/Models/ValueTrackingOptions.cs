@@ -12,5 +12,12 @@ namespace Konso.Clients.ValueTracking.Models
 
         [Required]
         public string ApiKey { get; set; }
+
+        [Required]
+        public string Protocol { get; set; } // grpc, rest
+
+        [Required]
+        public string AppName { get; set; }
+
     }
 }

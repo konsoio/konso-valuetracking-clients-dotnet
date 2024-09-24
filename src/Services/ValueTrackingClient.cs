@@ -9,6 +9,7 @@ using Konso.Clients.ValueTracking.Extensions;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
+using Microsoft.Extensions.Primitives;
 
 namespace Konso.Clients.ValueTracking.Services
 {
@@ -22,6 +23,7 @@ namespace Konso.Clients.ValueTracking.Services
         {
             _clientFactory = clientFactory;
             _config = config.Value;
+            _config.Endpoint = _config.Endpoint.RemoveTailSlash();
         }
 
         /// <summary>
@@ -51,7 +53,7 @@ namespace Konso.Clients.ValueTracking.Services
             // call api
             try
             {
-                var response = await client.PostAsync($"{_config.Endpoint}/v1/value_tracking/{_config.BucketId}", httpItem);
+                var response = await client.PostAsync($"{_config.Endpoint}/value_tracking/{_config.BucketId}", httpItem);
                 response.EnsureSuccessStatusCode();
                 var contents = await response.Content.ReadAsStringAsync();
 
@@ -81,7 +83,7 @@ namespace Konso.Clients.ValueTracking.Services
                 if (!client.DefaultRequestHeaders.TryAddWithoutValidation("x-api-key", _config.ApiKey)) throw new Exception("Missing API key");
 
                 int sortNum = (int)request.Sort;
-                var builder = new UriBuilder($"{_config.Endpoint}/v1/value_tracking/{_config.BucketId}")
+                var builder = new UriBuilder($"{_config.Endpoint}/value_tracking/{_config.BucketId}")
                 {
                     Port = -1
                 };
@@ -140,7 +142,7 @@ namespace Konso.Clients.ValueTracking.Services
                 if (!client.DefaultRequestHeaders.TryAddWithoutValidation("x-api-key", _config.ApiKey)) throw new Exception("Missing API key");
 
                 int sortNum = (int)request.Sort;
-                var builder = new UriBuilder($"{_config.Endpoint}/v1/value_tracking_with_aggs/{_config.BucketId}")
+                var builder = new UriBuilder($"{_config.Endpoint}/value_tracking_with_aggs/{_config.BucketId}")
                 {
                     Port = -1
                 };
@@ -201,7 +203,7 @@ namespace Konso.Clients.ValueTracking.Services
                 if (!client.DefaultRequestHeaders.TryAddWithoutValidation("x-api-key", _config.ApiKey)) throw new Exception("Missing API key");
 
                 int sortNum = (int)request.Sort;
-                var builder = new UriBuilder($"{_config.Endpoint}/v1/value_tracking_by_ref_charts/{_config.BucketId}")
+                var builder = new UriBuilder($"{_config.Endpoint}/value_tracking_by_ref_charts/{_config.BucketId}")
                 {
                     Port = -1
                 };

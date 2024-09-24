@@ -1,13 +1,12 @@
 using FluentAssertions;
 using Konso.Clients.ValueTracking.Models;
 using Konso.Clients.ValueTracking.Services;
-using Konso.Clients.ValueTracking.Tests;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace InDevLabs.Infra.Activity.Tests
+namespace Konso.Clients.ValueTracking.Tests
 {
     public class ValueTrackingTests
     {

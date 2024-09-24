@@ -213,11 +213,11 @@ namespace Konso.Clients.ValueTracking.Services
 
                 if (!request.DateFrom.HasValue)
                     throw new Exception("missing datefrom");
-                query["fromDate"] = request.DateFrom.ToString();
+                query["dateFrom"] = request.DateFrom.ToString();
 
                 if (!request.DateTo.HasValue)
                     throw new Exception("missing dateto");
-                query["toDate"] = request.DateTo.ToString();
+                query["dateTo"] = request.DateTo.ToString();
 
                 query["referenceId"] = request.ReferenceId;
 
